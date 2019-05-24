@@ -1,0 +1,25 @@
+language: node_js
+php:
+  - '10.15.3'
+
+jobs:
+  include:
+    - stage: build
+      if: branch = master
+      before_install:
+      - sudo apt-get install tar git
+      install:
+      - npm install
+      - npm run build
+      - ls -la build
+      before_script:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t mini-paint .
+      - docker images
+      - docker tag mini-paint $DOCKER_USERNAME/mini-paint
+      - docker push $DOCKER_USERNAME/mini-paint
