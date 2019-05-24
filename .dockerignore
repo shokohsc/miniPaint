@@ -1,0 +1,13 @@
+.git
+/examples/
+.dockerignore
+.env
+.env.test
+.gitignore
+.travis.yml
+Dockerfile
+README.md
+MIT-LICENSE.txt
+webpack.config.js
+npm-debug.log
+.DS_Store
