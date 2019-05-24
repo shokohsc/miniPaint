@@ -1,6 +1,6 @@
 language: node_js
-php:
-  - '10.15.3'
+node_js:
+  - 'lts/*'
 
 jobs:
   include:
